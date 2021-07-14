@@ -1,0 +1,207 @@
+#include <iostream>
+#include <iomanip>
+#include <conio.h>
+#include <stdlib.h>
+#include <math.h>
+
+using namespace std;
+
+int main()
+
+{
+    const float pmilk_chocolate=8.50f, peuropean_chocolate=9.75f, pwhite_chocolate= 10.50f,petruffles=12.50f;
+
+    double Ot1 = 0.0, Ot2=0.0, Ot3 =0.0, Ot4= 0.0 ,Ot5 = 0.0, Ototal = 0.0, Gtotal, ad_total;
+
+    double mc_units=0.0, ec_units=0.0, wc_units=0.0, et_units=0.0;
+
+    int a, option, milkchocolate = 1, darkeuropean = 2, whitechocolate = 3, europeanturffles = 4;
+
+    float shipping, discount;
+
+    char answer = 'y';
+
+    cout.setf(ios::fixed|ios::showpoint);
+    cout<< setprecision(2);
+
+    //display
+
+while (answer == 'y')
+{
+
+
+
+    // Display of menu
+    //{
+
+        cout<<"\n\n 1 of 4 Milk Chocolate @ $8.50 per pound";
+        cout<<"\n 2 of 4 Dark European Chocolate @ $9.75 per pound";
+        cout<<"\n 3 of 4 White Chocolate @ $10.50 per pound";
+        cout<< "\n 4 of 4 European Truffles @ 12.50 per pound";
+
+
+        cout<<"\n\n Enter a value between (1 - 4) to select the desire candy of choice: ";
+
+        cin >> option;
+
+        system("cls");
+
+
+    switch(option)
+        {
+
+
+    case 1:
+            cout << "\n\n You have chosen Milk chocolate,";
+            cout << " How many pounds would you like to buy @ $8.50 per pound: ";
+            cin >> mc_units;
+            cout << "Return to mean menu: ";
+            cin >> answer;
+            system("cls");
+            break;
+
+    case 2:
+            cout << "\n\n You have chosen Dark European chocolate, ";
+            cout << " How many pounds would you like to buy @ $9.75 per pound: ";
+            cin>> ec_units;
+           // system("cls");
+             //Ototal = peuropean_chocolate * units;
+            //cout << setprecision(2)<< "\n "<< units << "lbs of Dark European Chocolate @ $9.75 = "<< Ototal;
+            cout << "Return to main menu: ";
+            cin >> answer;
+            system("cls");
+            break;
+
+     case 3:
+
+            cout << "\n\n You have chosen White Chocolate, ";
+            cout << " How many pounds would you like to buy @ $10.50: ";
+            cin >> wc_units;
+            system ("cls");
+            //Ototal = pwhite_chocolate * units;
+            //cout << setprecision(2)<< "\n "<< units << "lbs of White Chocolate @ 12.50 = "<< Ototal;
+             cout << "Return to mean menu: ";
+             cin >> answer;
+            break;
+
+    case 4:
+
+            cout << "\n\n You have chosen European Turffles, ";
+            cout << " How many pounds would you like to buy @ 12.50: ";
+            cin >> et_units;
+            system("cls");
+            //Ototal = petruffles * units;
+            //cout << setprecision(2)<< "\n "<< units << "lbs of European Truffles @ 12.50 = "<< Ototal;
+             cout << "Return to mean menu: ";
+             cin >> answer;
+            break;
+    default:
+
+            cout << "\n\n You have entered an invalid entry," ;
+            cout << "To make another attempt enter y / n: ";
+            cin >> answer;
+              }
+    }
+
+    // calculation
+
+    cout <<"\n\n" << "      Receipt ";
+
+      if (mc_units> 0 )
+       {
+            Ot1 = pmilk_chocolate * mc_units;
+            cout<< setprecision(2) << "\n " << mc_units << "lbs of Milk chocolate @ $8.50 = "<< Ot1;
+                  }
+      if (ec_units > 0)
+           {
+            Ot2= peuropean_chocolate * ec_units;
+            cout << setprecision(2)<< "\n "<< ec_units << "lbs of Dark European Chocolate @ $9.75 = "<< Ot2;
+                 }
+
+      if (wc_units > 0)
+          {
+          Ot3 = pwhite_chocolate * wc_units;
+          cout << "\n "<< wc_units << "lbs of White chocolate @ $10.50 = " << Ot3;
+                         }
+      if(et_units > 0 )
+          {
+          Ot4 = petruffles * et_units;
+          cout << "\n "<< et_units << "lbs of European Truffles @ $12.50 = "<< Ot4;
+              }
+    Ototal = Ot1 + Ot2 + Ot3 + Ot4;
+
+
+switch(1)
+{
+
+
+   case 1:
+
+        if (Ototal < 20.00)
+        {
+        Ototal = Ot1 + Ot2 + Ot3 + Ot4;
+        shipping = Ototal * .10;
+        Gtotal = Ototal + shipping;
+        cout << " \n\n Order Total = " << Ototal;
+        cout << " \n\n shipping = " << shipping;
+        cout << " \n\n Grand total = " << Gtotal;
+        }
+
+        else if (Ototal > 20.00 && Ototal < 39.99)
+        {
+            Ototal = Ot1 + Ot2 + Ot3 + Ot4;
+            discount = Ototal * .10;
+            ad_total = Ototal - discount;
+            shipping = ad_total * .10;
+            Gtotal = ad_total + shipping;
+            cout << "\n\n Order total is = " << Ototal;
+            cout << "\n\n Discount of 10% = " << discount;
+            cout << "\n\n Order is = " << ad_total;
+            cout << "\n\n Shipping = " << shipping;
+            cout << "\n\n Grand Total = " << Gtotal;
+        }
+        else if (Ototal > 40.00 && Ototal < 59.99)
+        {
+            Ototal = Ot1 + Ot2 + Ot3 + Ot4;
+            discount = Ototal * .15;
+            ad_total = Ototal -discount;
+            shipping = ad_total * .10;
+            Gtotal = ad_total + shipping;
+            cout << "\n\n Order Total is = " << Ototal;
+            cout << "\n\n discount of 15% = " << discount;
+            cout << "\n\n Order is = "<< ad_total;
+            cout <<"\n\n Shipping = "<< shipping;
+            cout << "\n\n Grand Total = " << Gtotal;
+        }
+        else if (Ototal > 60.00 && Ototal < 79.99)
+        {
+            Ototal = Ot1 + Ot2 + Ot3 + Ot4;
+            discount = Ototal * .20;
+            ad_total= Ototal - discount;
+            shipping = ad_total * .10;
+            Gtotal = ad_total + shipping;
+            cout << "\n\n Order Total is = " << Ototal;
+            cout << "\n\n Dicount of 20% = " << discount;
+            cout << "\n\n Order is = " << ad_total;
+            cout << "\n\n Shipping = " << shipping;
+            cout << "\n\n Grand Total = " << Gtotal;
+        }
+        else if (Ototal >= 80.00)
+        {
+            Ototal = Ot1 + Ot2 + Ot3 + Ot4;
+            discount = Ototal * .25;
+            ad_total = Ototal - discount;
+            shipping = ad_total * .10;
+            Gtotal = ad_total + shipping;
+            cout << "\n\n Order Total is = " << Ototal;
+            cout << "\n\n Discount of 25% = " << discount;
+            cout << "\n\n Order is = " << ad_total;
+            cout << "\n\n Shipping = " << shipping;
+            cout << "\n\n Grand Total = " << Gtotal;
+        }
+
+
+
+}
+
+    }
