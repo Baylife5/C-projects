@@ -1,0 +1,139 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <stdlib.h>
+//#include <conio.h>
+
+using namespace std;
+
+float payCalc(float, float, float, float, int);
+
+int main()
+
+{
+
+cout.setf(ios::fixed|ios::showpoint);
+cout<< setprecision(2);
+  string name, id;
+  char again = 'y';
+  float rpay, overtime, gross, ftax, stax, socialtax, medicare, net;
+  float hworked=0.0, prate=0.0,ftaxrate=0.0,staxrate=0.0;
+  int option=0;
+
+ cout<< "\n\t\t\t\t\tEmployee Payroll Calculations\n\n";
+   while (again == 'Y'or again == 'y')
+    {
+  cout << "\n\n Enter full name: ";
+  getline(cin,name);
+
+  cout << "\n\n Enter your ID: ";
+  getline(cin,id);
+
+  cout << "\n\n Enter the amount of hours you worked this week(maximum is 60 hours): ";
+  cin >> hworked;
+
+  cout << "\n\n pay rate: ";
+  cin >> prate;
+
+  cout << "\n\n federal tax(maximum 0.5 or 50%):";
+  cin >> ftaxrate;
+
+  cout <<"\n\n state tax (maximum 0.3 or 30%):";
+  cin >> staxrate;
+
+ rpay = payCalc(hworked, prate, ftaxrate, staxrate, 1);
+ overtime = payCalc(hworked, prate, ftaxrate, staxrate, 2);
+ gross = payCalc(hworked, prate, ftaxrate, staxrate,3);
+ ftax = payCalc(hworked, prate, ftaxrate, staxrate,4);
+ stax = payCalc(hworked, prate, ftaxrate, staxrate,5);
+ socialtax = payCalc(hworked, prate, ftaxrate, staxrate,6);
+ medicare = payCalc(hworked, prate, ftaxrate, staxrate,7);
+ net = payCalc(hworked, prate, ftaxrate, staxrate,8);
+
+ system("cls");
+
+ if (hworked <= 40)
+{
+ cout << "\n\n               Employee Payroll Calculations:\n\n ";
+ cout << "\n I.D: "<<id << "\t name: "<<name
+      << "\n Weekly Hours: "<<hworked
+      << "\n Regular Hours  "<<hworked <<" @ $"<<prate <<":               $"<<rpay
+      << "\n Gross:                                       $"<<gross
+      << "\n\n Federal Taxes Withheld @ "<<ftaxrate<<"%:              $"<<ftax
+      << "\n State Taxes Withheld @ "<<staxrate<< "%:                $"<<stax
+      << "\n Medicare Withheld @ 1.45%                    $"<< medicare
+      << "\n Social Security Withheld @ 6.2%              $"<< socialtax
+      << "\n\n Net Pay:                                     $"<< net<<"\n\n";
+}
+
+else if (hworked > 40)
+{
+
+ cout << "\n\n                Employee Payroll Calculations:\n\n ";
+ cout << "\n I.D: " <<id <<"\t name: "<<name
+      << "\n Weekly Hours: "<<hworked
+      << "\n Regular Hours "<<40<<" @ $"<<prate<<":                     $"<<rpay
+      << "\n Overtime Hours "<<(hworked - 40)<<" @ $"<<(prate * 1.5)<<":                 $"<< ((hworked-40)*(prate * 1.5))
+      << "\n Gross:                                         $"<<gross
+      << "\n\n Federal Taxes Withheld @ "<<ftaxrate<<"%:                $"<<ftax
+      << "\n State Taxes Withheld @ "<<staxrate<<"%:                  $"<< stax
+      << "\n Medicare Withheld @ 1.45%:                     $"<< medicare
+      << "\n Social Security Withheld @ 6.2%:               $"<< socialtax
+      <<"\n\n Net Pay:"<<"                                       $"<< net<< "\n\n";
+   }
+
+   cout << "\n Compute another Employee's Pay Check? (Y/N): ";
+   cin >> again;
+   system("cls");
+   cin.ignore();
+}
+
+}
+
+float payCalc(float hworked, float prate, float ftaxrate, float staxrate, int option)
+{
+    float rpay, overtime, gross, ftax, stax, socialtax, medicare, net;
+
+
+    if (hworked >= 40)
+    {
+        rpay = 40 * prate;
+        overtime = ((hworked - 40) * (prate * 1.5));
+        gross = rpay + overtime;
+        ftax = gross * ftaxrate;
+        stax = gross * staxrate;
+        socialtax = gross * .062;
+        medicare = gross * .0145;
+        net = gross - (ftax + stax + socialtax + medicare);
+    }
+    else if (hworked <40)
+    {
+    rpay = hworked * prate;
+    gross = rpay;
+    ftax = gross * ftaxrate;
+    stax = gross * staxrate;
+    socialtax = gross * .062;
+    medicare = gross * .0145;
+    net =  gross - (ftax + stax + socialtax + medicare);
+    }
+    switch (option)
+    {
+    case 1:
+        return (rpay);
+    case 2:
+        return (overtime);
+    case 3:
+        return (gross);
+    case 4:
+        return (ftax);
+    case 5:
+        return (stax);
+    case 6:
+        return (socialtax);
+    case 7:
+        return (medicare);
+    case 8:
+        return (net);
+    }
+}
+
