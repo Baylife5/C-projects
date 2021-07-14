@@ -1,0 +1,135 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <stdlib.h>
+#include <string>
+
+using namespace std;
+
+
+// permutation for the max size allow for (26 x 26 x 26 x 26 ) X (10 x 10 x 10 x 10 ) orderings
+ int MAX = 9;
+
+int main()
+
+{
+    string name, name2, id, filename= "personnel.txt";
+    float hours=0.0, payrate=0.0,taxrate=0.0, gross=0.0, taxes=0.0, netpay=0.0;
+    bool running = true;
+    char again = 'y';
+    char nest = 'y';
+    int option=0;
+    ifstream fin;
+    ofstream fout;
+
+    while (again == 'y' || again == 'Y')
+    {
+
+       cout << "\n\n Option 1 writing ";
+       cout << "\n\n Option 2 reading ";
+       cout << "\n\n Option 3 quit ";
+       cout << "\n\n Enter one of the Options ranging from (1-3): ";
+       cin >> option;
+       system("cls");
+
+       switch (option)
+       {
+     case 1: /// write to file
+     fout.open("personnel.txt",ios::out|ios::app);
+
+     do
+     {
+         //fout.open("personnel.txt",ios::out|ios::app);
+         cout << "\n\n You have chosen to write to the date file. ";
+
+        
+        while(nest == 'y'){
+         cout << "\n\n Enter Work id: ";
+         cin >> id;
+
+         if(id.length() > MAX){
+
+             cout << "invalid ID length of id exceeds beyond 9\n";
+             cout << " would you like to renter the ID? ";
+             cin >> nest;
+
+                 if(nest == 'y'){
+                     system("cls");
+                  } else
+                        break;
+            }
+            else 
+                break;
+
+         }
+
+         cout << "\n\n Enter First Name: ";
+         cin >> name;
+
+         cout << "\n Enter Last Name: ";
+         cin >> name2;
+
+         cout <<  "\n Enter Hours worked: ";
+         cin >> hours;
+
+         cout << "\n Enter Pay rate: ";
+         cin >> payrate;
+
+         cout << "\n Enter Tax rate: ";
+         cin >> taxrate;
+
+
+
+        fout << id << " "<< name <<" "<< name2<< " "<< hours<< " "<< payrate<< " "<< taxrate << '\n';
+
+        cout << "\n\n Would you like to run again (y/n) ";
+        cin >> again;
+        system("cls");
+    } while(again=='y'or again== 'Y');
+    fout.close();
+    system("cls");
+
+    cout << "\nReturn to Menu (y/n): ";
+    cin >> again;
+    break;
+     case 2: {  /// read from file
+
+        fin.open("personnel.txt");
+
+            int i=0;
+    while (fin >> id >> name >> name2 >> hours >> payrate >> taxrate)
+            {
+
+               /// cout << "This is Option 2\n";
+          cout << "\n    Record #"<< ++i;
+          cout << "\n Employee I.D: " << id
+               << "\n Name: "<< name << " "<< name2
+               << "\n Hours worked: "<< hours
+               << "\n Pay per hour: $"<< payrate
+               << "\n Tax rate: $"<< taxrate<<"%\n";
+               gross = hours * payrate;
+               taxes = gross * taxrate;
+               netpay = gross - (gross * taxrate);
+          cout << " Gross: $"<< gross
+               << "\n Taxes: $"<< taxes
+               << "\n Net Pay: $"<< netpay<<"\n\n";
+
+            }
+        fin.close();
+
+        cout << "\n\nReturn to Menu (y/n): ";
+        cin >> again;
+        system("cls");
+         break;
+     }
+     case 3:
+         cout << "\n\n you have chosen to quit.";
+        return 0;
+        break;
+
+    }
+
+
+  }
+}
+
