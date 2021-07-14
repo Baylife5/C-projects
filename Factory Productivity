@@ -1,0 +1,229 @@
+#include<iostream>
+#include<iomanip>
+#include<fstream>
+#include<stdlib.h>
+
+using namespace std;
+
+const int rows=7;
+const int columns=5;
+const int pick=6;
+const string choice[pick]={" ","\tyou chosen to Display the current factories and each of there shifts.",
+                            "\tyou have chosen to Calculate the Highest and Lowest production runs.",
+                            "\tyou have chosen to Calculate the Average production.",
+                            "\tyou have chosen to Change the production run value of a particular factory"};
+int shift[rows][columns]={},low=0,high=0,number=0,runs=0,num=0,c1=0,c2=0,c3=0,c4=0;
+float average=0.0,total=0.0;
+void Display();
+void HighLow();
+void Average();
+void changes();
+
+
+ifstream fin;
+ofstream fout;
+
+int main()
+{
+
+  char go='y';
+  int option;
+
+    fin.open("Factorydata.txt",ios::in);
+    {
+    if(fin)
+      {
+        for(int r =1; r <=6; r++)
+        {
+            for(int c=1; c<=4; c++)
+            {
+                fin >> shift[r][c];
+            }
+        }
+          fin.close();
+      }
+    }
+
+while((go='y')or(go='Y'))
+{
+    /// Display the options and allow user to choose an option.
+
+  cout<< " \n 1 of 5) Display the current factories and each of there shifts? ";
+  cout<< " \n 2 of 5) Calculate the Highest and Lowest production runs?";
+  cout<< " \n 3 of 5) Calculate the Average production? ";
+  cout<< " \n 4 of 5) Change the production run value of a particular factory? ";
+  cout<< " \n 5 of 5) Quit?";
+  cout<< " \n\n Enter an option between(1-5): ";
+  cin >> option;
+
+  /// test for in validity of input.
+  while ((option<1)or(option>5))
+  {
+      cout<< "\n not the number "<< option<< " boobla enter between 1 and 5";
+      cout<< "\n";
+      system("pause");
+      system("cls");
+      cout<< " \n 1 of 5) Display the current factories and each of there shifts? ";
+      cout<< " \n 2 of 5) Calculate the Highest and Lowest production runs?";
+      cout<< " \n 3 of 5) Calculate the Average production? ";
+      cout<< " \n 4 of 5) Change the production run value of a particular factory? ";
+      cout<< " \n 5 of 5) Quit?";
+      cout<< " \n\n Enter an option between: ";
+      cin >> option;
+  }
+  system("cls");
+  cout <<"\t\n\n" <<choice[option];
+
+    switch(option)
+    {
+        case 1:
+        /// Display the current factories and each shift.
+            Display();
+            break;
+
+        case 2:
+            /// Display highest and lowest production runs.
+            Display();
+            HighLow();
+            break;
+
+        case 3:
+            /// Display the Averages of all production runs.
+            Display();
+            Average();
+            break;
+
+        case 4:
+            /// Enables the user to write(make changes to) the Data File.
+            Display();
+            changes();
+            break;
+
+        case 5:
+            /// allows the user to quite the program.
+            cout << "\n\n Bye and thanks for using this program.\n\n";
+            return 0;
+            break;
+    }
+    cout<< "\n\n Would you like to return to the main menu(Y/N): ";
+    cin>>go;
+    system("cls");
+    if((go=='n')or(go=='N'))
+        return 0;
+}
+}
+
+/// created functions
+
+void Display()
+{
+    /// Display the content from within the DataFile.
+    cout << "\n\n";
+    cout << "\nShifts)"<<setw(10)<< right<<'1'<<setw(5)<< right<<'2'<<setw(5)<< right<<'3'<<setw(5)<< right<<'4'
+         <<setw(12)<< right <<"total\n";
+    for(int r =1; r <=6; r++)
+    {
+        cout<<"factory# "<<(r) <<")  ";
+        for(int c=1; c<=4; c++)
+            {
+            cout<< setw(5)<< right<< shift[r][c];
+            number=shift[r][c]+number;
+            total=number;
+            }
+        cout<< setw(9)<< right << total;
+        number=0;
+        cout <<"\n";
+    }
+}
+
+void HighLow()
+{
+  /// test for high
+    for(int r =1; r <=6; r++)
+    {
+        for(int c=1; c<=4; c++)
+        {
+            if(shift[r][c]>high)
+            {
+                high=shift[r][c];
+                c2=c;
+                c1=r;
+            }
+        }
+     }
+  /// test for low value
+    low=high;
+    for(int r =1; r <=6; r++)
+    {
+        for(int c=1; c<=4; c++)
+        {
+            if(shift[r][c]<low)
+            {
+                low=shift[r][c];
+                c4=c;
+                c3=r;
+            }
+        }
+     }
+       cout<< "\n\n The highest number produced of the 6 production runs is: " << high<<" at Factory# "<<c1<<", Shift# " <<c2;
+       cout<< "\n\n The lowest number produced of the 6 production runs is: "<< low<< " at Factory# "<< c3<<", Shift# " <<c4;
+}
+void Average()
+{
+     /// calculate the averages
+        cout<< "\n\n";
+        for(int r =1; r <=6; r++)
+        {
+            for(int c=1; c<=4; c++)
+               {
+                number=shift[r][c]+number;
+                total=number;
+               }
+            cout<< "factory# "<<(r)<< " average production run is: ";
+            cout<< setw(7)<< right << (total/4);
+            average=((total/4)+average);
+            number=0;
+            cout <<"\n";
+          }
+          cout<< "\n the average of all production runt times together are: "<<fixed<< setprecision(2)<<(average/6)<<"\n\n";
+}
+void changes()
+{
+    /// Allow the user to make changes to the production runs
+
+    int cfactory,cshift;
+
+    cout << "\n\n which factory number would you like to change: ";
+    cin >> cfactory;
+    while((cfactory<1)>(cfactory<6))
+    {
+        system("cls");
+        cout << "\n\n which factory number would you like to change: ";
+        cin >> cfactory;
+    }
+    cout<< "\n\n which shift number would you like to change: ";
+    cin>>cshift;
+    while((cshift<1)or(cshift>4))
+    {
+        system("cls");
+        cout<< "\n\n which shift number would you like to change: ";
+        cin>>cshift;
+    }
+    cout<<"\n\n Enter a new production run: ";
+    cin>>runs;
+    shift[cfactory][cshift]=runs;
+    fout.open("Factorydata.txt",ios::out|ios::app);
+    {
+         for(int r =1; r <=6; r++)
+          {
+            for(int c=1; c<=4; c++)
+            {
+                fout<<" "<< shift[r][c];
+                if(c==4)
+                fout<<"\n";
+            }
+          }
+          fout.close();
+    }
+
+}
