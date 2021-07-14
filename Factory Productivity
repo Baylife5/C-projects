@@ -14,6 +14,7 @@ const string choice[pick]={" ","\tyou chosen to Display the current factories an
                             "\tyou have chosen to Change the production run value of a particular factory"};
 int shift[rows][columns]={},low=0,high=0,number=0,runs=0,num=0,c1=0,c2=0,c3=0,c4=0;
 float average=0.0,total=0.0;
+
 void Display();
 void HighLow();
 void Average();
