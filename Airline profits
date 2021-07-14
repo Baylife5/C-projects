@@ -1,0 +1,82 @@
+#include <iostream>
+#include <iomanip>
+#include <stdlib.h>
+#include <conio.h>
+#include <math.h>
+
+using namespace std;
+
+int main ()
+
+{
+    cout.setf(ios::fixed|ios::showpoint);
+    cout << setprecision(2);
+
+    int min_passengers = 0, max_passengers = 0, passengers= 0, num_passangers_max=0;
+
+    float discount = 0.0, ticket_price = 0.0, cof_ticket= 0.0;
+
+    float fixed_cost = 0.0, max_profit=0.0, max_ticket=0.0;
+
+    float profit = 0.0, gross = 0.0;
+
+    char answer = 'y';
+
+
+    min_passengers = 0;
+
+    cout << "\n\n starting point: ";
+    cin >> min_passengers;
+
+    cout << "\n\n ending point: ";
+    cin >> max_passengers;
+
+    if (max_passengers >= 500)
+    {
+         max_passengers= 500;
+    }
+
+    cout << "\n\n Enter a fixed cost: ";
+    cin >> fixed_cost;
+
+
+    cout << "\n\n ticket price: ";
+    cin >> ticket_price;
+
+    cout << "\n\n discount: ";
+    cin >> discount;
+    system("cls");
+
+    discount = ticket_price * discount;
+
+    cout<<"\n\n"<<"passengers";
+    cout <<" ticket price";
+    cout <<"\t    Gross";
+    cout <<"\t    Fixed cost";
+    cout << "\t      Profit";
+    
+    for(passengers = min_passengers; passengers <= max_passengers; passengers+=10)
+    {
+        cof_ticket = ticket_price-(((passengers - min_passengers)/10) * discount);
+        gross = cof_ticket * passengers;
+        profit = gross - fixed_cost;
+        cout<< setw(10) << "\n\n"<<passengers; ///number of passengers
+        cout <<setw(10)<< " $"<< cof_ticket; ///ticket price
+        cout <<setw(10)<< " $"<< gross; /// gross income
+        cout <<setw(11)<< " $"<< fixed_cost;///fixed cost
+        cout <<setw(10) << " $"<< profit;///profit
+
+        if(profit> max_profit)
+        {
+            max_profit= profit;
+            max_ticket= cof_ticket;
+            num_passangers_max = passengers;
+
+        }
+    }
+ cout << "\n\n Max Profit: "<< max_profit;
+ cout << "\n\n Ticket cost to generate max profit: "<< max_ticket;
+ cout << "\n\n Max Passengers: "<< num_passangers_max;
+
+
+}
