@@ -94,7 +94,7 @@ int main(){
 
     cout << replaceBlank(word);
 
-    /*cout << "\n enter a number: ";
+    cout << "\n enter a number: ";
     cin >> i;
 
     cout << "\n enter another number: ";
@@ -103,14 +103,14 @@ int main(){
     cout << "\n enter a word: ";
     cin >> b;
 
-      ///print_astrisks(i);
-      ///cout << sum(i);
-      //cout << power(i,s);
-      cout << endl<< endl;
-      //cout << isPalindrom(b);
-      cout << replaceBlank(b);
+    print_astrisks(i);
+    cout << sum(i);
+    cout << power(i,s);
+    cout << endl<< endl;
+    cout << isPalindrom(b);
+    cout << replaceBlank(b);
 
-        //cout << b.substr(0,b.length()-1);
-        //cout << b.substr(1)
-        cout << maxy(team, nums);*/
+    cout << b.substr(0,b.length()-1);
+    cout << b.substr(1)
+    cout << maxy(team, nums);
 }
